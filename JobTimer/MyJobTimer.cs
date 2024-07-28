@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Media;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -11,6 +12,8 @@ namespace JobTimer
     public class MyJobTimer
     {
         private const string fileWithHistory = "history.json";
+
+        private readonly SoundPlayer soundPlayer = new SoundPlayer(@"DingDong.wav");
 
         private readonly TimeSpan sec = TimeSpan.FromSeconds(1);
         private readonly TimeSpan min = TimeSpan.FromMinutes(1);
@@ -158,8 +161,7 @@ namespace JobTimer
         {
             if (timeSpanForCheck.Minutes != 0 && timeSpanForCheck.Minutes % 5 == 0 && timeSpanForCheck.Seconds == 0)
             {
-                var player = new System.Media.SoundPlayer(@"DingDong.wav");
-                player.Play();
+                soundPlayer.Play();
             }
         }
     }
