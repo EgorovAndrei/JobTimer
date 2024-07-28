@@ -24,11 +24,6 @@ namespace JobTimer
             _jobTimer.StartRest();
         }
 
-        //private void StartWorkButton_Click(object sender, EventArgs e)
-        //{
-        //    _jobTimer.StartTimer();
-        //}
-
         private void timerRest_Tick(object sender, EventArgs e)
         {
             _jobTimer.TimerRest_Tick();

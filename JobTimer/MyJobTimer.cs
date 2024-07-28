@@ -53,15 +53,6 @@ namespace JobTimer
             _timer_rest = timer_rest;
         }
 
-        private void UpdateLabels()
-        {
-            _label_dayResultWork.Text = _timespanDayResultWork.ToString();
-            _label_dayResultRest.Text = _timespanDayResultRest.ToString();
-            _label_timeRest.Text = _timespanForRest.ToString(@"mm\:ss");
-            _label_timeWork.Text = _timespanForWork.ToString(@"mm\:ss");
-            _label_timeWorkRecord.Text = _timespanCurrentRecord.ToString(@"mm\:ss");
-        }
-
         public void StartRest()
         {
             _timespanDayResultWork += _timespanForWork;
@@ -93,6 +84,9 @@ namespace JobTimer
         public void TimerRest_Tick()
         {
             _timespanForRest = _timespanForRest.Add(sec);
+
+            DingDong(_timespanForRest);
+
             UpdateLabels();
         }
 
@@ -100,11 +94,8 @@ namespace JobTimer
         {
             _timespanForWork = _timespanForWork.Add(sec);
 
-            if (_timespanForWork.Minutes != 0 && _timespanForWork.Minutes % 5 == 0 && _timespanForWork.Seconds == 0)
-            {
-                System.Media.SoundPlayer player = new System.Media.SoundPlayer(@"DingDong.wav");
-                player.Play();
-            }
+            DingDong(_timespanForWork);
+
             UpdateLabels();
         }
 
@@ -151,6 +142,24 @@ namespace JobTimer
                 _timespanForFine = finedTime;                
                 
                 UpdateLabels();
+            }
+        }
+
+        private void UpdateLabels()
+        {
+            _label_dayResultWork.Text = _timespanDayResultWork.ToString();
+            _label_dayResultRest.Text = _timespanDayResultRest.ToString();
+            _label_timeRest.Text = _timespanForRest.ToString(@"mm\:ss");
+            _label_timeWork.Text = _timespanForWork.ToString(@"mm\:ss");
+            _label_timeWorkRecord.Text = _timespanCurrentRecord.ToString(@"mm\:ss");
+        }
+
+        private void DingDong(TimeSpan timeSpanForCheck)
+        {
+            if (timeSpanForCheck.Minutes != 0 && timeSpanForCheck.Minutes % 5 == 0 && timeSpanForCheck.Seconds == 0)
+            {
+                var player = new System.Media.SoundPlayer(@"DingDong.wav");
+                player.Play();
             }
         }
     }

@@ -28,12 +28,6 @@ namespace JobTimer
                             r.WorkedTimeRecord))
                         .OrderByDescending(q => q.WorkDate.Date);
 
-                    //var orderedInfo = new List<DayInfo>();
-                    //foreach (var day in dates)
-                    //{
-                    //    orderedInfo.Add(records.FirstOrDefault(r => r.WorkDate == day));
-                    //}
-
                     return orderedDayInfo.ToList();
                 }
             }
